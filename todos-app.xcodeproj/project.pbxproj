@@ -13,6 +13,8 @@
 		08301B2722156617009626A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08301B2622156617009626A7 /* Assets.xcassets */; };
 		08301B2A22156617009626A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08301B2822156617009626A7 /* LaunchScreen.storyboard */; };
 		08301B3B22157469009626A7 /* CheckListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08301B3A22157469009626A7 /* CheckListItem.swift */; };
+		08301B3D221584EF009626A7 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08301B3C221584EF009626A7 /* AddItemViewController.swift */; };
+		089C2C072215CA4F00F1D880 /* CheckMarkViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C2C062215CA4F00F1D880 /* CheckMarkViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		08301B2922156617009626A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08301B2B22156617009626A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08301B3A22157469009626A7 /* CheckListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListItem.swift; sourceTree = "<group>"; };
+		08301B3C221584EF009626A7 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		089C2C062215CA4F00F1D880 /* CheckMarkViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				08301B2122156616009626A7 /* CheckListViewController.swift */,
+				08301B3C221584EF009626A7 /* AddItemViewController.swift */,
+				089C2C062215CA4F00F1D880 /* CheckMarkViewCell.swift */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -210,8 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08301B3D221584EF009626A7 /* AddItemViewController.swift in Sources */,
 				08301B3B22157469009626A7 /* CheckListItem.swift in Sources */,
 				08301B2222156616009626A7 /* CheckListViewController.swift in Sources */,
+				089C2C072215CA4F00F1D880 /* CheckMarkViewCell.swift in Sources */,
 				08301B2022156616009626A7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CheckListViewController: UITableViewController {
-
+class CheckListViewController: UITableViewController, AddItemViewControllerDelegate {
     var checkItemList: [CheckListItem] = []
     
     override func viewDidLoad() {
@@ -17,13 +16,23 @@ class CheckListViewController: UITableViewController {
         self.checkItemList.append(CheckListItem(text: "Je suis check", checked: true))
         self.checkItemList.append(CheckListItem(text: "Je suis pas check"))
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "addItem"){
+            let addItemViewController = (segue.destination as! UINavigationController).topViewController as! AddItemViewController
+            addItemViewController.delegate = self
+        } else if (segue.identifier == "editItem") {
+            let addItemViewController = (segue.destination as! UINavigationController).topViewController as! AddItemViewController
+            addItemViewController.delegate = self
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.checkItemList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckListItem", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckListItem", for: indexPath) as! CheckMarkViewCell
         let item = self.checkItemList[indexPath.row]
         self.configureText(for: cell, withItem: item)
         self.configureCheckmark(for: cell, withItem: item)
@@ -31,20 +40,39 @@ class CheckListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
         self.checkItemList[indexPath.row].toogleCheck()
+        print( self.checkItemList[indexPath.row].checked)
         tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.checkItemList.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        self.dismiss(animated: false, completion: nil)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: CheckListItem) {
+        self.dismiss(animated: false, completion: nil)
+        self.checkItemList.append(item)
+        tableView.insertRows(at: [IndexPath(row: self.checkItemList.count-1, section: 0)], with: .none)
     }
     
 }
 
-private extension CheckListViewController {
-    func configureCheckmark(for cell: UITableViewCell, withItem item: CheckListItem) {
-        cell.accessoryType = item.checked ? .checkmark : .none
+extension CheckListViewController {
+    func configureCheckmark(for cell: CheckMarkViewCell, withItem item: CheckListItem) {
+        cell.checkMarkLabel.isHidden = !item.checked
     }
     
-    func configureText(for cell: UITableViewCell, withItem item: CheckListItem) {
-        cell.textLabel?.text = item.text
+    func configureText(for cell: CheckMarkViewCell, withItem item: CheckListItem) {
+        cell.nameLabel.text = item.text
     }
 }
 
