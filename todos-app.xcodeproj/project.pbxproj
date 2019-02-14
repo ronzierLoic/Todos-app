@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		08301B2022156616009626A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08301B1F22156616009626A7 /* AppDelegate.swift */; };
-		08301B2222156616009626A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08301B2122156616009626A7 /* ViewController.swift */; };
+		08301B2222156616009626A7 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08301B2122156616009626A7 /* CheckListViewController.swift */; };
 		08301B2522156616009626A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08301B2322156616009626A7 /* Main.storyboard */; };
 		08301B2722156617009626A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08301B2622156617009626A7 /* Assets.xcassets */; };
 		08301B2A22156617009626A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08301B2822156617009626A7 /* LaunchScreen.storyboard */; };
+		08301B3B22157469009626A7 /* CheckListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08301B3A22157469009626A7 /* CheckListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08301B1C22156616009626A7 /* todos-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todos-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		08301B1F22156616009626A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		08301B2122156616009626A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		08301B2122156616009626A7 /* CheckListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		08301B2422156616009626A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		08301B2622156617009626A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08301B2922156617009626A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08301B2B22156617009626A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08301B3A22157469009626A7 /* CheckListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,87 @@
 		08301B1E22156616009626A7 /* todos-app */ = {
 			isa = PBXGroup;
 			children = (
+				08301B382215743D009626A7 /* assets */,
+				08301B3222156A2E009626A7 /* presentation */,
+				08301B3122156A26009626A7 /* data */,
 				08301B1F22156616009626A7 /* AppDelegate.swift */,
-				08301B2122156616009626A7 /* ViewController.swift */,
-				08301B2322156616009626A7 /* Main.storyboard */,
-				08301B2622156617009626A7 /* Assets.xcassets */,
-				08301B2822156617009626A7 /* LaunchScreen.storyboard */,
 				08301B2B22156617009626A7 /* Info.plist */,
 			);
 			path = "todos-app";
+			sourceTree = "<group>";
+		};
+		08301B3122156A26009626A7 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				08301B3622156AED009626A7 /* model */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		08301B3222156A2E009626A7 /* presentation */ = {
+			isa = PBXGroup;
+			children = (
+				08301B3722156AF6009626A7 /* presenter */,
+				08301B3322156AB3009626A7 /* ui */,
+			);
+			path = presentation;
+			sourceTree = "<group>";
+		};
+		08301B3322156AB3009626A7 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				08301B3922157449009626A7 /* storyboard */,
+				08301B3522156AC7009626A7 /* view */,
+				08301B3422156ABA009626A7 /* viewcontroller */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		08301B3422156ABA009626A7 /* viewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				08301B2122156616009626A7 /* CheckListViewController.swift */,
+			);
+			path = viewcontroller;
+			sourceTree = "<group>";
+		};
+		08301B3522156AC7009626A7 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		08301B3622156AED009626A7 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				08301B3A22157469009626A7 /* CheckListItem.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		08301B3722156AF6009626A7 /* presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = presenter;
+			sourceTree = "<group>";
+		};
+		08301B382215743D009626A7 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				08301B2622156617009626A7 /* Assets.xcassets */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		08301B3922157449009626A7 /* storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				08301B2322156616009626A7 /* Main.storyboard */,
+				08301B2822156617009626A7 /* LaunchScreen.storyboard */,
+			);
+			path = storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +210,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08301B2222156616009626A7 /* ViewController.swift in Sources */,
+				08301B3B22157469009626A7 /* CheckListItem.swift in Sources */,
+				08301B2222156616009626A7 /* CheckListViewController.swift in Sources */,
 				08301B2022156616009626A7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
