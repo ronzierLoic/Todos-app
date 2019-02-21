@@ -8,14 +8,17 @@
 
 import UIKit
 
+
 class CheckListViewController: UITableViewController, ItemViewControllerDelegate {
-    var checkItemList: [CheckListItem] = []
     static var documentDirectory: URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!
     static var dataFileUrl: URL = documentDirectory.appendingPathComponent("Checklist").appendingPathExtension("json")
     
+    var checkItemList: [CheckListItem] = []
+    var checkList: CheckList!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.title = self.checkList.name
     }
     
     override func awakeFromNib() {
@@ -84,7 +87,6 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
             saveCheckListItems()
         }
     }
-    
 }
 
 extension CheckListViewController {
