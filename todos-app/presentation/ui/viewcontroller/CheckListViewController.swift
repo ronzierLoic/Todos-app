@@ -10,21 +10,15 @@ import UIKit
 
 
 class CheckListViewController: UITableViewController, ItemViewControllerDelegate {
-    static var documentDirectory: URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!
-    static var dataFileUrl: URL = documentDirectory.appendingPathComponent("Checklist").appendingPathExtension("json")
+   
     
-    var checkItemList: [CheckListItem] = []
     var checkList: CheckList!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.checkList.name
     }
-    
-    override func awakeFromNib() {
-        loadCheckListItems()
-    }
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "addItem"){
             let addItemViewController = (segue.destination as! UINavigationController).topViewController as! ItemViewController
@@ -34,7 +28,7 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
             if let cell = sender as? UITableViewCell,
                 let indexPath = tableView.indexPath(for: cell){
                 let addItemViewController = (segue.destination as! UINavigationController).topViewController as! ItemViewController
-                addItemViewController.itemToEdit = checkItemList[indexPath.row]
+                addItemViewController.itemToEdit = checkList.items[indexPath.row]
                 addItemViewController.delegate = self
             }
             
@@ -42,13 +36,13 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.checkItemList.count
+        return self.checkList.items.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckListItem", for: indexPath) as! CheckMarkViewCell
-        let item = self.checkItemList[indexPath.row]
+        let item = self.checkList.items[indexPath.row]
         self.configureText(for: cell, withItem: item)
         self.configureCheckmark(for: cell, withItem: item)
         return cell
@@ -56,15 +50,15 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.checkItemList[indexPath.row].toogleCheck()
+        self.checkList.items[indexPath.row].toogleCheck()
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.checkItemList.remove(at: indexPath.row)
+            self.checkList.items.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            saveCheckListItems()
+            //saveCheckListItems()
         }
     }
     
@@ -74,17 +68,17 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
     
     func itemViewController(_ controller: ItemViewController, didFinishAddingItem item: CheckListItem) {
         self.dismiss(animated: false, completion: nil)
-        self.checkItemList.append(item)
-        tableView.insertRows(at: [IndexPath(row: self.checkItemList.count-1, section: 0)], with: .none)
-        saveCheckListItems()
+        self.checkList.items.append(item)
+        tableView.insertRows(at: [IndexPath(row: self.checkList.items.count-1, section: 0)], with: .none)
+        //saveCheckListItems()
     }
     
     func itemViewController(_ controller: ItemViewController, didFinishEditingItem item: CheckListItem) {
         self.dismiss(animated: false, completion: nil)
-        if let row = self.checkItemList.firstIndex(where: {$0 === item}) {
-            self.checkItemList[row] = item
+        if let row = self.checkList.items.firstIndex(where: {$0 === item}) {
+            self.checkList.items[row] = item
             tableView.reloadRows(at: [IndexPath(row: row, section:0)], with: .none)
-            saveCheckListItems()
+            //saveCheckListItems()
         }
     }
 }
@@ -98,18 +92,18 @@ extension CheckListViewController {
         cell.nameLabel.text = item.text
     }
     
-    func saveCheckListItems() {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let data = try? encoder.encode(checkItemList)
-        try? data?.write(to: CheckListViewController.dataFileUrl)
-    }
+//    func saveCheckListItems() {
+//        let encoder = JSONEncoder()
+//        encoder.outputFormatting = .prettyPrinted
+//        let data = try? encoder.encode(checkItemList)
+//        try? data?.write(to: CheckListViewController.dataFileUrl)
+//    }
+//
+//    func loadCheckListItems() {
+//        if let data = try? Data(contentsOf: CheckListViewController.dataFileUrl),
+//            let list = try? JSONDecoder().decode([CheckListItem].self, from: data) {
+//            self.checkItemList = list
+//        }
+//    }
     
-    func loadCheckListItems() {
-        if let data = try? Data(contentsOf: CheckListViewController.dataFileUrl),
-            let list = try? JSONDecoder().decode([CheckListItem].self, from: data) {
-            self.checkItemList = list
-        }
-    }
-        
 }

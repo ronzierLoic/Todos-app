@@ -9,16 +9,16 @@
 import UIKit
 
 class AllListViewController: UITableViewController, ListDetailViewControllerDelegate {
+    static var documentDirectory: URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!
+    static var dataFileUrl: URL = documentDirectory.appendingPathComponent("Checklist").appendingPathExtension("json")
     
-    var lists: [CheckList] = []
+    var lists = DataModel.instance.lists
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lists.append(CheckList(name:"list 1"))
-        lists.append(CheckList(name:"list 2"))
-        lists.append(CheckList(name:"list 3"))
+        
     }
-    
+       
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "detailList"){            
             if let cell = sender as? UITableViewCell,
@@ -80,4 +80,10 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         }
     }
 
+}
+
+extension AllListViewController {
+    
+  
+    
 }
