@@ -22,8 +22,14 @@ class CheckListViewController: UITableViewController, AddItemViewControllerDeleg
             let addItemViewController = (segue.destination as! UINavigationController).topViewController as! AddItemViewController
             addItemViewController.delegate = self
         } else if (segue.identifier == "editItem") {
-            let addItemViewController = (segue.destination as! UINavigationController).topViewController as! AddItemViewController
-            addItemViewController.delegate = self
+           
+            if let cell = sender as? UITableViewCell,
+            let indexPath = tableView.indexPath(for: cell){
+                let addItemViewController = (segue.destination as! UINavigationController).topViewController as! AddItemViewController
+                addItemViewController.itemToEdit = checkItemList[indexPath.row]
+                addItemViewController.delegate = self
+            }
+            
         }
     }
     
@@ -40,10 +46,8 @@ class CheckListViewController: UITableViewController, AddItemViewControllerDeleg
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
         self.checkItemList[indexPath.row].toogleCheck()
-        print( self.checkItemList[indexPath.row].checked)
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
@@ -62,6 +66,14 @@ class CheckListViewController: UITableViewController, AddItemViewControllerDeleg
         self.dismiss(animated: false, completion: nil)
         self.checkItemList.append(item)
         tableView.insertRows(at: [IndexPath(row: self.checkItemList.count-1, section: 0)], with: .none)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: CheckListItem) {
+        self.dismiss(animated: false, completion: nil)
+        if let row = self.checkItemList.firstIndex(where: {$0 === item}) {
+            self.checkItemList[row] = item
+            tableView.reloadRows(at: [IndexPath(row: row, section:0)], with: .none)
+        }
     }
     
 }

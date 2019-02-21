@@ -11,6 +11,7 @@ import UIKit
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(_ controller: AddItemViewController)
     func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: CheckListItem)
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: CheckListItem)
 }
 
 class AddItemViewController: UITableViewController , UITextFieldDelegate {
@@ -19,9 +20,15 @@ class AddItemViewController: UITableViewController , UITextFieldDelegate {
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
     var delegate: AddItemViewControllerDelegate?
+    var itemToEdit: CheckListItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if((itemToEdit) != nil){
+            self.nameItemField.text = itemToEdit?.text
+            self.navigationItem.title = "Item modification"
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,8 +52,12 @@ class AddItemViewController: UITableViewController , UITextFieldDelegate {
     }
     
     @IBAction func doneClick(_ sender: Any) {
-        print(self.nameItemField.text!)
-        delegate?.addItemViewController(self, didFinishAddingItem: CheckListItem(text: self.nameItemField.text!))
+        if(itemToEdit != nil){
+            itemToEdit?.text = self.nameItemField.text!
+            delegate?.addItemViewController(self, didFinishEditingItem: itemToEdit!)
+        } else {
+            delegate?.addItemViewController(self, didFinishAddingItem: CheckListItem(text: self.nameItemField.text!))
+        }
     }
     
 }
