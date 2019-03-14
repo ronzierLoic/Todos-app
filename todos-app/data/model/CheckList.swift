@@ -18,4 +18,11 @@ class CheckList: Codable {
         
     }
    
+    func uncheckedItemsCount() -> Int {
+        if(items.count == 0){
+            return -1
+        } else {
+            return items.filter({$0.checked == false}).count
+        }
+    }
 }

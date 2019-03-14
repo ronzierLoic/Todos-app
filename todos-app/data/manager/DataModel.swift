@@ -34,4 +34,8 @@ class DataModel {
             self.lists = list
         }
     }
+    
+    func sortCheckLists() {
+        lists.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
+    }
 }
