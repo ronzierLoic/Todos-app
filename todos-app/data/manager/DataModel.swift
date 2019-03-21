@@ -19,6 +19,13 @@ class DataModel {
     init() {
         NotificationCenter.default.addObserver( self,selector: #selector(self.saveCheckList), name: UIApplication.didEnterBackgroundNotification, object: nil)
         loadCheckListItems()
+        print((FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!)
+        UserDefaults.standard.register(defaults: ["firstLaunch" : true])
+        let firstLaunch = UserDefaults.standard.bool(forKey: "firstLaunch")
+        print(firstLaunch)
+        if(firstLaunch == true){
+            self.handleFirstLaunch()
+        }
     }
     
     @objc func saveCheckList() {
@@ -37,5 +44,10 @@ class DataModel {
     
     func sortCheckLists() {
         lists.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
+    }
+    
+    func handleFirstLaunch() {
+        lists.append(CheckList(name: "Edit your first item, Swipe me to delete"))
+        UserDefaults.standard.set(false, forKey: "firstLaunch")
     }
 }

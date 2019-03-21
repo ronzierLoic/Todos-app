@@ -47,17 +47,18 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-        cell.textLabel?.text = DataModel.instance.lists[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! CheckListViewCell
+        cell.nameLabel?.text = DataModel.instance.lists[indexPath.row].name
         let uncheckItemNumber = DataModel.instance.lists[indexPath.row].uncheckedItemsCount()
-        switch uncheckItemNumber {
-        case -1:
-            cell.detailTextLabel?.text = "No items"
-        case 0:
-            cell.detailTextLabel?.text = "All Done!"
-        default:
-            cell.detailTextLabel?.text = String(uncheckItemNumber)
+        
+        switch (DataModel.instance.lists[indexPath.row].items.count, uncheckItemNumber) {
+            case (0, _):   cell.sutitleLabel?.text = "(No Item)"
+            case (_, 0):   cell.sutitleLabel?.text = "All Done!"
+            case (_, let nbRemaining):   cell.sutitleLabel?.text = "\(nbRemaining) Remaining"
         }
+        
+        cell.iconView.image = DataModel.instance.lists[indexPath.row].icon.image
+        
         return cell
     }
     

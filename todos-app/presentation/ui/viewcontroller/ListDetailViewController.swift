@@ -18,9 +18,18 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var iconView: UIImageView!
     
     var delegate: AllListViewController?
     var itemToEdit: CheckList?
+    var itemToCreate: CheckList = CheckList(name: "", icon: IconAsset.Folder)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "iconChoose"){
+            let addItemViewController = segue.destination as! IconPickerViewController
+            addItemViewController.setIconHandler = self.setIcon
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +38,10 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
             self.nameField.text = itemToEdit?.name
             self.navigationItem.title = "Item modification"
             self.doneButton.isEnabled = true
+            self.iconView.image = self.itemToEdit?.icon.image
+        } else {
+            self.itemToCreate.icon = IconAsset.Folder
+            self.iconView.image = IconAsset.Folder.image
         }
     }
     
@@ -39,6 +52,12 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         } else {
             self.doneButton.isEnabled = false
         }
+        
+        if((nameField.text) != ""){
+            self.doneButton.isEnabled = true
+        }
+        
+        
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -52,16 +71,35 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     @IBAction func doneClick(_ sender: Any) {
         if(itemToEdit != nil){
             itemToEdit?.name = self.nameField.text!
             delegate?.listDetailViewController(self, didFinishEditingItem: itemToEdit!)
         } else {
-            delegate?.listDetailViewController(self, didFinishAddingItem: CheckList(name: nameField.text!))
+            itemToCreate.name = nameField.text!
+            delegate?.listDetailViewController(self, didFinishAddingItem: itemToCreate)
         }
     }
     
     @IBAction func cancelClick(_ sender: Any) {
         delegate?.listDetailControllerDidCancel(self)
     }
+}
+
+extension ListDetailViewController {
+    
+    func setIcon(view: UIViewController, icon: IconAsset) {
+        self.navigationController?.popViewController(animated: true)
+        if(itemToEdit != nil){
+            self.itemToEdit?.icon = icon
+        } else {
+            self.itemToCreate.icon = icon
+        }
+        self.iconView.image = icon.image
+    }
+    
 }

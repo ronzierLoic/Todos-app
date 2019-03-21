@@ -11,18 +11,15 @@ import Foundation
 class CheckList: Codable {
     var name: String
     var items: [CheckListItem]
+    var icon: IconAsset
     
-    init(name: String, items: [CheckListItem] = []){
+    init(name: String, items: [CheckListItem] = [], icon: IconAsset = IconAsset.NoIcon){
         self.name = name
         self.items = items
-        
+        self.icon = IconAsset.NoIcon
     }
    
     func uncheckedItemsCount() -> Int {
-        if(items.count == 0){
-            return -1
-        } else {
-            return items.filter({$0.checked == false}).count
-        }
+        return items.filter({$0.checked == false}).count
     }
 }
