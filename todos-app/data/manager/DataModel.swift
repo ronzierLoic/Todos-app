@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class DataModel {
     static var instance = DataModel()
@@ -20,11 +21,8 @@ class DataModel {
         NotificationCenter.default.addObserver( self,selector: #selector(self.saveCheckList), name: UIApplication.didEnterBackgroundNotification, object: nil)
         loadCheckListItems()
         print((FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!)
-        UserDefaults.standard.register(defaults: ["firstLaunch" : true])
-        let firstLaunch = UserDefaults.standard.bool(forKey: "firstLaunch")
-        print(firstLaunch)
-        if(firstLaunch == true){
-            self.handleFirstLaunch()
+        if(Preference.instance.firstLaunch() == true) {
+            lists.append(CheckList(name: "Edit your first item, Swipe me to delete"))
         }
     }
     
@@ -46,8 +44,34 @@ class DataModel {
         lists.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
     }
     
-    func handleFirstLaunch() {
-        lists.append(CheckList(name: "Edit your first item, Swipe me to delete"))
-        UserDefaults.standard.set(false, forKey: "firstLaunch")
-    }
+//    func addNotification(item: CheckListItem) {
+//        
+//        let content = UNMutableNotificationContent()
+//        content.title = item.text
+//        
+//        let units: Set<Calendar.Component> = [.minute, .hour, .day, .month, .year]
+//        let dateComponents = Calendar.current.dateComponents(units, from: item.dueDate)
+//        
+//        
+//        // Create the trigger as a repeating event.
+//        let trigger = UNCalendarNotificationTrigger(
+//            dateMatching: dateComponents, repeats: true)
+//        
+//        let uuidString = UUID().uuidString
+//        let request = UNNotificationRequest(identifier: uuidString,
+//                                            content: content,
+//                                            trigger: trigger)
+//        
+//        let notificationCenter = UNUserNotificationCenter.current()
+//        notificationCenter.add(request) { (error) in
+//            if error != nil {
+//                // Handle any errors.
+//            }
+//        }
+//    }
+//    
+//    
+//    func removeNotification() {
+//        
+//    }
 }

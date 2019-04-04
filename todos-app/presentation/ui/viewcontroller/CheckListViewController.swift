@@ -58,7 +58,7 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
         if editingStyle == .delete {
             self.checkList.items.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            //saveCheckListItems()
+            DataModel.instance.saveCheckList()
         }
     }
     
@@ -70,7 +70,7 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
         self.dismiss(animated: false, completion: nil)
         self.checkList.items.append(item)
         tableView.insertRows(at: [IndexPath(row: self.checkList.items.count-1, section: 0)], with: .none)
-        //saveCheckListItems()
+        DataModel.instance.saveCheckList()
     }
     
     func itemViewController(_ controller: ItemViewController, didFinishEditingItem item: CheckListItem) {
@@ -78,7 +78,7 @@ class CheckListViewController: UITableViewController, ItemViewControllerDelegate
         if let row = self.checkList.items.firstIndex(where: {$0 === item}) {
             self.checkList.items[row] = item
             tableView.reloadRows(at: [IndexPath(row: row, section:0)], with: .none)
-            //saveCheckListItems()
+            DataModel.instance.saveCheckList()
         }
     }
 }
@@ -91,19 +91,4 @@ extension CheckListViewController {
     func configureText(for cell: CheckMarkViewCell, withItem item: CheckListItem) {
         cell.nameLabel.text = item.text
     }
-    
-//    func saveCheckListItems() {
-//        let encoder = JSONEncoder()
-//        encoder.outputFormatting = .prettyPrinted
-//        let data = try? encoder.encode(checkItemList)
-//        try? data?.write(to: CheckListViewController.dataFileUrl)
-//    }
-//
-//    func loadCheckListItems() {
-//        if let data = try? Data(contentsOf: CheckListViewController.dataFileUrl),
-//            let list = try? JSONDecoder().decode([CheckListItem].self, from: data) {
-//            self.checkItemList = list
-//        }
-//    }
-    
 }

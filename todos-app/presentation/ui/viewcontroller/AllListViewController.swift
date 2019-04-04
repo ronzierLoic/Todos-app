@@ -70,6 +70,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         if editingStyle == .delete {
             DataModel.instance.lists.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            DataModel.instance.saveCheckList()
         }
     }
     
@@ -81,6 +82,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         self.dismiss(animated: false, completion: nil)
         DataModel.instance.lists.append(item)
         tableView.insertRows(at: [IndexPath(row: DataModel.instance.lists.count-1, section: 0)], with: .none)
+        DataModel.instance.saveCheckList()
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditingItem item: CheckList) {
@@ -88,13 +90,8 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         if let row = DataModel.instance.lists.firstIndex(where: {$0 === item}) {
             DataModel.instance.lists[row] = item
             tableView.reloadRows(at: [IndexPath(row: row, section:0)], with: .none)
+            DataModel.instance.saveCheckList()
         }
     }
 
-}
-
-extension AllListViewController {
-    
-  
-    
 }

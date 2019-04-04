@@ -22,6 +22,8 @@
 		08F7E74E223A42D1004514D5 /* CheckListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7E74D223A42D0004514D5 /* CheckListViewCell.swift */; };
 		08F7E751223A4D12004514D5 /* IconPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7E750223A4D12004514D5 /* IconPickerViewController.swift */; };
 		08F7E754223A8E28004514D5 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F7E753223A8E28004514D5 /* UserNotifications.framework */; };
+		08F9295F2243829000E0C44E /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9295E2243829000E0C44E /* Preference.swift */; };
+		08F9296122438AA900E0C44E /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9296022438AA900E0C44E /* UserDefaultKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		08F7E74D223A42D0004514D5 /* CheckListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewCell.swift; sourceTree = "<group>"; };
 		08F7E750223A4D12004514D5 /* IconPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPickerViewController.swift; sourceTree = "<group>"; };
 		08F7E753223A8E28004514D5 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		08F9295E2243829000E0C44E /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		08F9296022438AA900E0C44E /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,7 @@
 			children = (
 				08301B3A22157469009626A7 /* CheckListItem.swift */,
 				08B9BC96221EC14F00BB6F94 /* CheckList.swift */,
+				08F9296022438AA900E0C44E /* UserDefaultKey.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -170,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				085C19CC221EE5C100D56A17 /* DataModel.swift */,
+				08F9295E2243829000E0C44E /* Preference.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -262,12 +268,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				08F7E74E223A42D1004514D5 /* CheckListViewCell.swift in Sources */,
+				08F9295F2243829000E0C44E /* Preference.swift in Sources */,
 				08B9BC93221EB8C500BB6F94 /* AllListViewController.swift in Sources */,
 				08B9BC95221EB8DF00BB6F94 /* ListDetailViewController.swift in Sources */,
 				08F7E751223A4D12004514D5 /* IconPickerViewController.swift in Sources */,
 				08301B3D221584EF009626A7 /* ItemViewController.swift in Sources */,
 				085C19CD221EE5C100D56A17 /* DataModel.swift in Sources */,
 				08301B3B22157469009626A7 /* CheckListItem.swift in Sources */,
+				08F9296122438AA900E0C44E /* UserDefaultKey.swift in Sources */,
 				08B9BC97221EC14F00BB6F94 /* CheckList.swift in Sources */,
 				08301B2222156616009626A7 /* CheckListViewController.swift in Sources */,
 				089C2C072215CA4F00F1D880 /* CheckMarkViewCell.swift in Sources */,

@@ -23,33 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         notification.requestAuthorization(options: [.alert, .sound, .badge]) { // 2
             granted, error in
             print("Permission granted: \(granted)") // 3
-            
-            let content = UNMutableNotificationContent()
-            content.title = "Weekly Staff Meeting"
-            content.body = "Every Tuesday at 2pm"
-            
-            var dateComponents = DateComponents()
-            dateComponents.calendar = Calendar.current
-            
-            dateComponents.weekday = 5  // Tuesday
-            dateComponents.hour = 16    // 14:00 hours
-            dateComponents.minute = 25
-            
-            // Create the trigger as a repeating event.
-            let trigger = UNCalendarNotificationTrigger(
-                dateMatching: dateComponents, repeats: true)
-            
-            let uuidString = UUID().uuidString
-            let request = UNNotificationRequest(identifier: uuidString,
-                                                content: content,
-                                                trigger: trigger)
-            
-            let notificationCenter = UNUserNotificationCenter.current()
-            notificationCenter.add(request) { (error) in
-                if error != nil {
-                    // Handle any errors.
-                }
-            }
         }
         
         
